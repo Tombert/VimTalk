@@ -1,0 +1,73 @@
+\documentclass{beamer}
+\usepackage{default}
+% colors (theme=...): red (default), blue, cyan, orange, green
+\mode<presentation>
+
+% title and author
+\title{Vim Talk}
+\author{Tom Gebert}
+
+% document
+\begin{document}
+
+\begin{frame}{Some Obligatory History}
+  \begin{itemize}
+	  \item Bill Joy created vi in 1976 for Unix \begin{itemize}
+			  \item Continuation of the ``ed'' line editor
+	  \end{itemize}
+          \item Vim stands for ``Vi IMproved'' and was released in 1991
+	  \item Started as a basic port but has added a bunch of new features over vanilla vi \begin{itemize}
+			\item Default distribution with most flavors of Linux
+	  \end{itemize}
+		  
+          
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Modes!}
+	The part that scares everyone away from Vim is the concept of ``modal editing''. What does this mean? 
+	\begin{itemize}
+		\item You can be in one of three different modes at any point \begin{itemize}
+				\item \texttt{i} or \texttt{a} puts you in insert mode
+				\item \texttt{v} puts you in visual (or ``highlight'') mode
+				\item Exit either of those modes by hitting escape.  This puts you in Normal mode (which is also the default)
+		\end{itemize}
+		
+		\item It usually says on the bottom which one you're in. 
+		\item If you're ever scared, just hit escape.  It will be OK. 
+	\end{itemize}
+\end{frame} 
+\begin{frame}{Simple Movement}
+  There is a relatively non-intuitive set of keys for moving around character-by-character
+  \begin{itemize}
+	  \item \texttt{h} moves left
+	  \item \texttt{l} moves right 
+	  \item \texttt{j} moves down 
+	  \item \texttt{k} moves up 
+
+          
+  \end{itemize}
+  \begin{itemize}
+	  \item You can also use the arrow keys
+          
+  \end{itemize}
+\end{frame}
+\begin{frame}{More advanced movement}
+	I almost never use the \texttt{hjkl} commands to move around, and prefer to usually go by word or by paragraph.  
+	\begin{itemize}
+		\item \texttt{w} moves you forward a word and puts your cursor in front of the next word. 
+		\item \texttt{e} moves you to the end of the current word or the end of the next one
+		\item \texttt{\}} moves you to the end of the paragraph (or the next one)
+		\item \texttt{\{} moves you to the beginning of the paragraph (or the previous one)
+	\end{itemize}
+	I find it's useful to get into the pattern of going ``by word'' instead of ``by character'' as it makes writing macros a lot simpler
+\end{frame}
+\begin{frame}{More advanced movement}
+	\begin{itemize}
+		\item \texttt{0} jumps to the beginning of the line
+		\item \texttt{\$} jumps to the end of the line
+		\item \texttt{I} jumps to the beginning of the line and puts you in insert mode
+		\item \texttt{A} jumps to the end of the line and puts you in insert mode
+	\end{itemize}
+\end{frame}
+\end{document}
