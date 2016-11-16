@@ -4,12 +4,31 @@
 \mode<presentation>
 
 % title and author
-\title{Vim Talk}
+\title{Getting }
 \author{Tom Gebert}
 
 % document
 \begin{document}
+\begin{frame} {What is Vim}
+	What is Vim? 
+	\begin{itemize}
+		\item Vim is a declarative text editor by Bram Moolenaar
+		\item Vim is an editing ideology. 
+		\item Vim is life. 
+	\end{itemize}
+\end{frame}
+\begin{frame} {Installation}
+	On Mac: \begin{itemize}
+		\item \texttt{brew install vim} or \texttt{brew install macvim} (for GUI)
+		\item The built-in version of Vim for Mac is pretty out-of-date but should still work
+                \end{itemize}
+	For Windows: \begin{itemize}
+		\item Download and install GVim
+		\item OR download the VsVim plugin for Visual Studio (what I'll be using for this demonstation)
+	\end{itemize}
 
+	All the demos for this talk should work on any of the above.  
+\end{frame}
 \begin{frame}{Some Obligatory History}
   \begin{itemize}
 	  \item Bill Joy created vi in 1976 for Unix \begin{itemize}
@@ -34,6 +53,7 @@
 		\end{itemize}
 		
 		\item It usually says on the bottom which one you're in. 
+		\item Makes learning a bit tricky, but also limits the need for modifier keys
 		\item If you're ever scared, just hit escape.  It will be OK. 
 	\end{itemize}
 \end{frame} 
@@ -57,10 +77,14 @@
 	\begin{itemize}
 		\item \texttt{w} moves you forward a word and puts your cursor in front of the next word. 
 		\item \texttt{e} moves you to the end of the current word or the end of the next one
+		\item \texttt{b} jumps to the beginning of the current word (or the next one)
 		\item \texttt{\}} moves you to the end of the paragraph (or the next one)
 		\item \texttt{\{} moves you to the beginning of the paragraph (or the previous one)
 	\end{itemize}
 	I find it's useful to get into the pattern of going ``by word'' instead of ``by character'' as it makes writing macros a lot simpler
+\end{frame}
+\begin{frame}{More advanced movement}
+	You can repeat a movement by putting a number in front. For example, \texttt{20w} will jump forward 20 words
 \end{frame}
 \begin{frame}{More advanced movement}
 	\begin{itemize}
@@ -68,6 +92,114 @@
 		\item \texttt{\$} jumps to the end of the line
 		\item \texttt{I} jumps to the beginning of the line and puts you in insert mode
 		\item \texttt{A} jumps to the end of the line and puts you in insert mode
+		\item \texttt{gg} jumps to the beginning of the file
+		\item \texttt{G} jumps to the end of the file
+	\end{itemize}
+\end{frame}
+\begin{frame}{Actions}
+	Movement is great, but the bread and butter of Vim is how it can compose with actions
+	\begin{itemize}
+		\item \texttt{d} begins the delete action
+		\item \texttt{y} begins the yank (copy) action
+		\item \texttt{v} begins the visual (highlight) action. \begin{itemize}
+				\item Visual can be an action \textbf{and} a mode
+		\end{itemize}
+	\end{itemize}
+	Any of these actions can be combined with the movements from before. 
+
+		\textbf{Note}: Once an action has been started, \texttt{i} basically means ``current''
+
+\end{frame}
+\begin{frame}{Examples}
+	As a demonstration, try these in Normal Mode
+	\begin{itemize}	
+		\item Delete the next twenty words: \texttt{d20w}
+		\item Delete the next two characters: \texttt{d2l}
+		\item Copy the previous eight words: \texttt{y8b}
+		\item Select until the end of the next four paragraphs: \texttt{v4\}}
+		\item Delete everything after this point on this line: \texttt{d\$}
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\begin{itemize}	
+		\item Copy everything before this point on this line: \texttt{y0}
+		\item Select everything from this point to the end of the file \texttt{vgg}
+		\item Delete the current word: \texttt{diw}
+		\item Copy everything in the paratheses: \texttt{yib} \begin {itemize}
+		\item Presumably to be annoying, after an action, \texttt{b} means "small block" (parentheses) in this context. \texttt{B} means ``big block'' and works with curly-braces. 
+	        \end{itemize}
+	\end{itemize}
+	\end{frame}
+\begin{frame}{Shortcuts}
+  Some of these are so common that they have easier shortcuts
+  \begin{itemize}
+	  \item \texttt{x} is basically equivalent to \texttt{dl} and deletes the current character
+	  \item \texttt{yy} is basically equivalent to \texttt{0y\$} and copies the current line
+	  \item \texttt{dd} is basically equivalent to \texttt{0d\$} and deletes the current line
+  \end{itemize}
+\end{frame}
+\begin{frame}{Macros}
+   Keeping your editing style declarative lends itself incredibly well for the use of macros
+   \begin{itemize}
+	   \item begin recording a macro by hitting \texttt{q} and any other letter (for this we'll use \texttt{a})
+           \item Do a series of commands 
+	   \item End the macro by hitting \texttt{q} again
+	   \item Execute the macro by hitting \texttt{@a} (substitute the \texttt{a} with whatever letter you chose)
+	   \item Repeat the macro by hitting \texttt{@@}
+   \end{itemize}
+\end{frame}
+\begin{frame}{Example: Converting Hyperlinks to JSON}
+	Here's an example 
+\end{frame}
+
+\begin{frame}{Example: Surround with delimiters and capitalize}
+	Here's another Examples
+\end{frame}
+\begin{frame} {Basic Macro Tips}
+	Here are a few basic things I do when creating macros. 
+	\begin{itemize}
+		\item Start by hitting 0 so that you can start at the beginning of the line
+		\item Think as declaratively as possible.  \begin{itemize}
+				\item Move by words instead of by character so that the macro is easier to reuse
+				\item Use the "jump to" features like "jump to end" liberally
+				\item Before writing the macro, look for bits that are easy to generalize and try and ignore the bits that aren't
+				\item When you're done making your edits, hit \texttt{j} to move to the next line, so that the macro is easier to repeat
+		\end{itemize}
+			\textbf{Note}: None of these are law, just rules of thumb for getting started. 
+	\end{itemize}
+\end{frame}
+\begin{frame} {To Learn More}
+	\begin{itemize}
+		\item On Mac and Linux, type \texttt{vimtutor} into the command line. \begin{itemize}
+				\item On Windows, it comes with either Git Bash or Cygwin
+	        \end{itemize}
+	\end{itemize}
+\end{frame}
+\begin{frame} {To Learn More}
+	\begin{itemize}
+
+	\item Avoid the temptation to live in Insert Mode \begin{itemize}
+			\item It's best to \textbf{only} use insert mode when you're typing new text. 
+			\item Inserts count as only \textbf{one} layer of undo-history. 
+			\item Editor is wholly unremarkable in insert mode
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+\begin{frame}{To Learn More}
+	Experiment!
+	\begin{itemize}
+		\item Vim's interface is designed to be composable and guessable.  
+		\item It's entirely possible that you can discover a new and useful command that isn't explicitly documented
+		\item It makes the editor a lot more fun to use
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{To Learn More}
+	Feel free to bother me for questions!  
+	\begin{itemize}
+		\item @tombert on Slack (the guy with the smiley-icon)
+		\item github.com/tombert
+		\item tom.gebert@jet.com
 	\end{itemize}
 \end{frame}
 \end{document}
